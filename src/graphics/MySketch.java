@@ -12,10 +12,10 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class MySketch extends PApplet {
-    private Frog frog;
+    private Character frog;
     private Background startBackdrop;
     private Button start;
-    private NPC turtle;
+    private Character turtle;
     
     int stage = 0;
     
@@ -31,12 +31,13 @@ public class MySketch extends PApplet {
         bg = loadImage("images/MainMenuBackground.PNG");
         bg1 = loadImage("images/BottomOfWell.PNG");
         
+        
         fill(0);
         textSize(22);
         
         start = new Button (this, "images/StartButton.png", 285, 110);
-        frog = new Frog(this, "images/Frog.png", 5, 400, 450);
-        turtle = new NPC(this, "images/Turtle.png", 200, 200);
+        frog = new Character(this, "images/Frog.png", 5, 400, 450);
+        turtle = new Character(this, "images/Turtle.png", 0, 200, 200);
     }
     
     public void draw(){
@@ -52,7 +53,7 @@ public class MySketch extends PApplet {
             textSize(30);
             text("INSIDE THE WELL", 625, 75);
             frog.draw();
-            
+            turtle.draw();
             if (keyPressed) {
                 if (keyCode == LEFT){
                     frog.move(-5, 0);
@@ -64,6 +65,27 @@ public class MySketch extends PApplet {
                     frog.move(0, 5);
                 }
             }
+            
+            if (turtle.isCollidingWith(frog)){
+                stage++;
+            }
+        } else if (stage == 2) {
+            image(bg, 0, 0, width, height);
+            if (keyPressed) {
+                if (keyCode == LEFT){
+                    frog.move(-5, 0);
+                } else if (keyCode == RIGHT) {
+                    //frog.move(5, 0);
+                } else if (keyCode == UP) {
+                    //frog.move(0, -5);
+                } else if (keyCode == DOWN) {
+                    frog.move(0, 5);
+                }
+            }
+            
+            //if (turtle.isCollidingWith(frog)){
+                
+            //}
         }
     }
     

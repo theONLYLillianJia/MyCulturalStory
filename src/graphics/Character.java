@@ -9,13 +9,13 @@ import processing.core.PImage;
  *
  * @author 343244042
  */
-public class Frog {
+public class Character {
   private int x, y;
   private int speed;
   private PApplet app;
   private PImage image;
   
-  public Frog(PApplet p, String imagePath, int speed, int x, int y) {
+  public Character(PApplet p, String imagePath, int speed, int x, int y) {
     this.x = x;
     this.y = y;
     this.speed = speed;
@@ -30,6 +30,16 @@ public class Frog {
   
   public void draw(){
       app.image(image, x, y);
+  }
+  
+  public boolean isCollidingWith(Character other){
+      boolean isLeftOfOtherRight = x < other.x + other.image.width;
+      boolean isRightOfOtherLeft = x + image.width > other.x;
+      boolean isAboveOtherBottom = y < other.y + other.image.height;
+      boolean isbelowOtherTop = y + image.height > other.y;
+      
+      return isLeftOfOtherRight && isRightOfOtherLeft &&
+              isAboveOtherBottom && isbelowOtherTop;
   }
 }
 
