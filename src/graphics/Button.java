@@ -27,4 +27,8 @@ public class Button {
     public void draw(){
         app.image(image, x, y);
     }
+    
+    public boolean isClicked(float mx, float my){
+        return (mx >= x && mx <= x + image.width && my >= y && my <= y + image.height);
+    }
 }
