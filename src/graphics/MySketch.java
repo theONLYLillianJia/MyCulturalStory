@@ -16,10 +16,10 @@ public class MySketch extends PApplet {
     private Button chatBox;
     
     private Character frog;
-    private Character turtle;
+    private NPC turtle;
     private Character hitBlock;
     
-    int stage = 0;
+    private static int stage = 0;
     
     private PApplet app;
     private PImage bg;
@@ -44,7 +44,7 @@ public class MySketch extends PApplet {
         chatBox = new Button (this, "images/Chat1.png", 10, 500);
         
         frog = new Character(this, "images/Frog.png", 5, 400, 450);
-        turtle = new Character(this, "images/Turtle.png", 0, 200, 200);
+        turtle = new NPC(this, "images/Turtle.png",0,  200, 200);
         hitBlock = new Character(this, "images/HitBlockTeal.PNG", 0, 380, 135);
     }
     
@@ -55,7 +55,7 @@ public class MySketch extends PApplet {
             image(bg, 0, 0, width, height);
             start.draw();
             text("PRESS ENTER TO START", 320, 75);
-        } else if (stage ==1) {
+        } else if (stage == 1) {
             image(bg1, 0, 0, width, height);
             textSize(30);
             text("INSIDE THE WELL", 625, 75);
@@ -73,7 +73,7 @@ public class MySketch extends PApplet {
             movement();
             
             frog = new Character(this, "images/Frog.png", 5, 400, 600);
-            turtle = new Character(this, "images/Turtle.png", 0, 365, 285);
+            turtle = new NPC(this, "images/Turtle.png",0,  365, 285);
         } else if (stage == 3) {
             image(bg3, 0, 0, width, height);
             frog.draw();
@@ -105,6 +105,8 @@ public class MySketch extends PApplet {
     }
     
     public void mousePressed(){
+        System.out.println("x: " + mouseX + " | y: " + mouseY);
+        
         if (stage == 0) {
             if (start.isClicked(mouseX, mouseY)){
                 stage = 1;

@@ -22,6 +22,13 @@ public class Character {
     this.app = p;
     this.image = app.loadImage(imagePath);
   }
+ //REMEMBER TO USE THIS!!!
+  public Character (PApplet p, String imagePath, int x, int y) {
+      this.x = x;
+      this.y = y;
+      this.app = p;
+      this.image = app.loadImage(imagePath);
+  }
   
   public void move(int dx, int dy){
       x += dx;

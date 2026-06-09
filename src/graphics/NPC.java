@@ -11,24 +11,11 @@ import processing.core.PImage;
  *
  * @author thech
  */
-public class NPC {
-    private int x, y;
-    private PApplet app;
-    private PImage image;
-  
-    public NPC(PApplet p, String imagePath, int x, int y) {
-        this.x = x;
-        this.y = y;
-        this.app = p;
-        this.image = app.loadImage(imagePath);
-    }
-  
-    public void move(int dx, int dy){
-        x += dx;
-        y += dy;
-    }
-  
-    public void draw(){
-        app.image(image, x, y);
+public class NPC extends Character{
+    int speed;
+    
+    public NPC(PApplet p, String imagePath, int speed, int x, int y) {
+        super(p, imagePath, x, y);
+        this.speed = 0;
     }
 }
