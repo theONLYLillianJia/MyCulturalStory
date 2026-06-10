@@ -14,6 +14,7 @@ import processing.core.PImage;
 public class MySketch extends PApplet {
     private Button start;
     private Button chatBox;
+    private Button next;
     
     private Character frog;
     private NPC turtle;
@@ -26,6 +27,8 @@ public class MySketch extends PApplet {
     private PImage bg1;
     private PImage bg2;
     private PImage bg3;
+    private PImage bg4;
+    private PImage bg5;
     
     public void settings(){
         size (874,684);
@@ -36,12 +39,15 @@ public class MySketch extends PApplet {
         bg1 = loadImage("images/BottomOfWell.PNG");
         bg2 = loadImage("images/BottomOfWell(1).PNG");
         bg3 = loadImage("images/Road.PNG");
+        bg4 = loadImage("images/GameTutorial.png");
+        bg5 = loadImage("images/GameTutorial(1).png");
         
         fill(0);
         textSize(22);
         
         start = new Button (this, "images/StartButton.png", 285, 110);
         chatBox = new Button (this, "images/Chat1.png", 10, 500);
+        next = new Button (this, "images/Next.png", 660, 610);
         
         frog = new Character(this, "images/Frog.png", 5, 400, 450);
         turtle = new NPC(this, "images/Turtle.png",0,  200, 200);
@@ -79,6 +85,15 @@ public class MySketch extends PApplet {
             frog.draw();
             turtle.draw();
             movement();
+            if (turtle.isCollidingWith(frog)){
+                stage++;
+            }
+        } else if (stage == 4) {
+            image(bg4, 0, 0, width, height);
+            next.draw();
+        } else if (stage == 5) {
+            image(bg5, 0, 0, width, height);
+            next.draw();
         }
     }
     
@@ -114,6 +129,10 @@ public class MySketch extends PApplet {
         } else if (stage == 2) {
             if (chatBox.isClicked(mouseX, mouseY)){
                 stage = 3;
+            }
+        } else if (stage == 4 || stage == 5) {
+            if (next.isClicked(mouseX, mouseY)){
+                stage++;
             }
         }
     }
