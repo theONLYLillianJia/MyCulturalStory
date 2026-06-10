@@ -15,12 +15,17 @@ public class MySketch extends PApplet {
     private Button start;
     private Button chatBox;
     private Button next;
+    private Button fly;
+    
+    //PFont myfont;
     
     private Character frog;
     private NPC turtle;
     private Character hitBlock;
     
     private static int stage = 0;
+    int flyCount = 0;
+    int flyAdd = 1;
     
     private PApplet app;
     private PImage bg;
@@ -29,6 +34,7 @@ public class MySketch extends PApplet {
     private PImage bg3;
     private PImage bg4;
     private PImage bg5;
+    private PImage bg6;
     
     public void settings(){
         size (874,684);
@@ -41,6 +47,7 @@ public class MySketch extends PApplet {
         bg3 = loadImage("images/Road.PNG");
         bg4 = loadImage("images/GameTutorial.png");
         bg5 = loadImage("images/GameTutorial(1).png");
+        bg6 = loadImage("images/GameBackdrop.png");
         
         fill(0);
         textSize(22);
@@ -48,6 +55,7 @@ public class MySketch extends PApplet {
         start = new Button (this, "images/StartButton.png", 285, 110);
         chatBox = new Button (this, "images/Chat1.png", 10, 500);
         next = new Button (this, "images/Next.png", 660, 610);
+        fly = new Button (this, "images/Fly.png", 120, 250);
         
         frog = new Character(this, "images/Frog.png", 5, 400, 450);
         turtle = new NPC(this, "images/Turtle.png",0,  200, 200);
@@ -94,7 +102,18 @@ public class MySketch extends PApplet {
         } else if (stage == 5) {
             image(bg5, 0, 0, width, height);
             next.draw();
+        } else if (stage == 6) {
+            image(bg6, 0, 0, width, height);
+            fly.draw();
+            text("+" + flyAdd() + " flies", 200, 500);
+            text("Flies: " + flyCount, 100, 75);
+            
         }
+    }
+    
+    public int flyAdd () {
+
+        return flyAdd;
     }
     
     public void keyPressed() {
@@ -133,6 +152,10 @@ public class MySketch extends PApplet {
         } else if (stage == 4 || stage == 5) {
             if (next.isClicked(mouseX, mouseY)){
                 stage++;
+            }
+        } else if (stage == 6) {
+            if (fly.isClicked(mouseX, mouseY)){
+                flyCount += flyAdd;
             }
         }
     }
