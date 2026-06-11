@@ -32,6 +32,8 @@ public class MySketch extends PApplet {
     private static int stage = 0;
     int flyCount = 0;
     int flyAdd = 1;
+    int cost[] = new int[6];
+    int ncost[] = new int [6];
     
     private PApplet app;
     private PImage bg;
@@ -47,6 +49,13 @@ public class MySketch extends PApplet {
     }
     
     public void setup(){
+        cost[0] = 1;
+        cost[1] = 4;
+        cost[2] = 35;
+        cost[3] = 5;
+        cost[4] = 24;
+        cost[5] = 230;
+        
         bg = loadImage("images/MainMenuBackground.PNG");
         bg1 = loadImage("images/BottomOfWell.PNG");
         bg2 = loadImage("images/BottomOfWell(1).PNG");
@@ -123,8 +132,30 @@ public class MySketch extends PApplet {
             flySwatter.draw();
             electricSwatter.draw();
             laserSwatter.draw();
+            
             text("+" + flyAdd() + " flies", 200, 500);
             text("Flies: " + flyCount, 100, 75);
+            
+            if (rottenFruit.isClicked(mouseX, mouseY)){
+                //cost(cost);
+                text("Desc: 2x Flies", 136, 540);
+                text("Cost: " + ncost[0], 136, 570);
+            } else if (ripeFruit.isClicked(mouseX, mouseY)){
+                text("Desc: 25x Flies", 136, 540);
+                text("Cost: " + ncost[1], 136, 570);
+            } else if (you.isClicked(mouseX, mouseY)){
+                text("Desc: 100x Flies", 136, 540);
+                text("Cost: " + ncost[2], 136, 570);
+            } else if (flySwatter.isClicked(mouseX, mouseY)){
+                text("Desc: +1 Flies", 136, 540);
+                text("Cost: " + ncost[3], 136, 570);
+            } else if (electricSwatter.isClicked(mouseX, mouseY)){
+                text("Desc: +10 Flies", 136, 540);
+                text("Cost: " + ncost[4], 136, 570);
+            } else if (laserSwatter.isClicked(mouseX, mouseY)){
+                text("Desc: +100 Flies", 136, 540);
+                text("Cost: " + ncost[5], 136, 570);
+            }
             
         }
     }
@@ -174,7 +205,27 @@ public class MySketch extends PApplet {
         } else if (stage == 6) {
             if (fly.isClicked(mouseX, mouseY)){
                 flyCount += flyAdd;
+            } else if (rottenFruit.isClicked(mouseX, mouseY)){
+                ncost[0] += (cost[0]*2);
+            } else if (ripeFruit.isClicked(mouseX, mouseY)){
+                ncost[1] += (cost[1]*2);
+            } else if (you.isClicked(mouseX, mouseY)){
+                ncost[2] += (cost[2]*2);
+            } else if (flySwatter.isClicked(mouseX, mouseY)){
+                ncost[3] += (cost[3]*2);
+            } else if (electricSwatter.isClicked(mouseX, mouseY)){
+                ncost[4] += (cost[4]*2);
+            } else if (laserSwatter.isClicked(mouseX, mouseY)){
+                ncost[5] += (cost[5]*2);
             }
         }
     }
+    
+    //public int cost (int cost) {
+        //if (rottenFruit.isClicked(mouseX, mouseY)){
+                //ncost += cost;
+        //}
+
+        //return ncost;
+    //}
 }
