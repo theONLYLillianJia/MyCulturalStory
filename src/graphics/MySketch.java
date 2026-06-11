@@ -16,6 +16,12 @@ public class MySketch extends PApplet {
     private Button chatBox;
     private Button next;
     private Button fly;
+    private Button rottenFruit;
+    private Button ripeFruit;
+    private Button you;
+    private Button flySwatter;
+    private Button electricSwatter;
+    private Button laserSwatter;
     
     //PFont myfont;
     
@@ -56,6 +62,12 @@ public class MySketch extends PApplet {
         chatBox = new Button (this, "images/Chat1.png", 10, 500);
         next = new Button (this, "images/Next.png", 660, 610);
         fly = new Button (this, "images/Fly.png", 120, 250);
+        rottenFruit = new Button (this, "images/RottenFruitButton.png", 635, 80);
+        ripeFruit = new Button (this, "images/RipeFruitButton.png", 635, 167);
+        you = new Button (this, "images/YouButton.png", 635, 254);
+        flySwatter = new Button (this, "images/FlySwatterButton.png", 635, 341);
+        electricSwatter = new Button (this, "images/ElectricSwatterButton.png", 635, 428);
+        laserSwatter = new Button (this, "images/LaserSwatterButton.png", 635, 515);
         
         frog = new Character(this, "images/Frog.png", 5, 400, 450);
         turtle = new NPC(this, "images/Turtle.png",0,  200, 200);
@@ -105,6 +117,12 @@ public class MySketch extends PApplet {
         } else if (stage == 6) {
             image(bg6, 0, 0, width, height);
             fly.draw();
+            rottenFruit.draw();
+            ripeFruit.draw();
+            you.draw();
+            flySwatter.draw();
+            electricSwatter.draw();
+            laserSwatter.draw();
             text("+" + flyAdd() + " flies", 200, 500);
             text("Flies: " + flyCount, 100, 75);
             
