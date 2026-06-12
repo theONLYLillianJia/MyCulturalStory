@@ -22,18 +22,20 @@ public class MySketch extends PApplet {
     private Button flySwatter;
     private Button electricSwatter;
     private Button laserSwatter;
+    private Button feed;
     
     //PFont myfont;
     
     private Character frog;
     private NPC turtle;
     private Character hitBlock;
+    private NPC fatFrog;
     
     private static int stage = 0;
-    int flyCount = 0;
-    int flyAdd = 1;
-    long cost[] = new long[6];
-    long ncost[] = new long [6];
+    long flyCount = 0;
+    long flyAdd = 1;
+    long cost[] = new long[7];
+    long ncost[] = new long [7];
     
     private PApplet app;
     private PImage bg;
@@ -55,6 +57,7 @@ public class MySketch extends PApplet {
         ncost[3] = 5;
         ncost[4] = 24;
         ncost[5] = 230;
+        ncost[6] = 10000;
         
         bg = loadImage("images/MainMenuBackground.PNG");
         bg1 = loadImage("images/BottomOfWell.PNG");
@@ -77,9 +80,11 @@ public class MySketch extends PApplet {
         flySwatter = new Button (this, "images/FlySwatterButton.png", 635, 341);
         electricSwatter = new Button (this, "images/ElectricSwatterButton.png", 635, 428);
         laserSwatter = new Button (this, "images/LaserSwatterButton.png", 635, 515);
+        feed = new Button (this, "images/Feed.png", 415, 515);
         
         frog = new Character(this, "images/Frog.png", 5, 400, 450);
         turtle = new NPC(this, "images/Turtle.png",0,  200, 200);
+        fatFrog = new NPC(this, "images/FatFrog.png",0,  0, 0);
         hitBlock = new Character(this, "images/HitBlockTeal.PNG", 0, 380, 135);
     }
     
@@ -132,6 +137,7 @@ public class MySketch extends PApplet {
             flySwatter.draw();
             electricSwatter.draw();
             laserSwatter.draw();
+            feed.draw();
             
             text("+" + flyAdd() + " flies", 200, 500);
             text("Flies: " + flyCount, 100, 75);
@@ -155,12 +161,18 @@ public class MySketch extends PApplet {
             } else if (laserSwatter.isClicked(mouseX, mouseY)){
                 text("Desc: +100 Flies", 136, 540);
                 text("Cost: " + ncost[5], 136, 570);
+            } else if (feed.isHovered(mouseX, mouseY)){
+                text("Desc: Feed and end game", 136, 540);
+                text("Cost: " + ncost[6], 36, 570);
             }
             
+        } else if (stage == 7) {
+            fatFrog.draw();
+            text("Frog Fed, will add image later" , 36, 570);
         }
     }
     
-    public int flyAdd () {
+    public long flyAdd () {
 
         return flyAdd;
     }
@@ -211,18 +223,34 @@ public class MySketch extends PApplet {
 
                 if (flyCount >= ncost[0]){
                     flyAdd = flyAdd * 2;
+                    flyCount = flyCount - ncost[0];
                     ncost[0] = (ncost[0] + cost[0])*2;
                 }
             } else if (ripeFruit.isClicked(mouseX, mouseY)){
-                ncost[1] = (ncost[1] + cost[1])*2;
+                if (flyCount >= ncost[1]){
+                    flyAdd = flyAdd * 10;
+                    flyCount -= ncost[1];
+                    ncost[1] = (ncost[1] + cost[1])*2;
+                }
             } else if (you.isClicked(mouseX, mouseY)){
-                ncost[2] = (ncost[2] + cost[2])*2;
-            } else if (flySwatter.isClicked(mouseX, mouseY)){
-                ncost[3] += (cost[3]*5);
-            } else if (electricSwatter.isClicked(mouseX, mouseY)){
-                ncost[4] += (cost[4]*5);
-            } else if (laserSwatter.isClicked(mouseX, mouseY)){
-                ncost[5] += (cost[5]*5);
+                if (flyCount >= ncost[2]){
+                    flyAdd = flyAdd * 100;
+                    flyCount -= ncost[2];
+                    ncost[2] = (ncost[2] + cost[2])*2;
+                }
+            //} else if (flySwatter.isClicked(mouseX, mouseY)){
+                //ncost[3] += (cost[3]*5);
+            //} else if (electricSwatter.isClicked(mouseX, mouseY)){
+                //ncost[4] += (cost[4]*5);
+            //} else if (laserSwatter.isClicked(mouseX, mouseY)){
+                //ncost[5] += (cost[5]*5);
+            }
+            
+            if (feed.isClicked(mouseX, mouseY)) {
+                if (flyCount >= ncost[6]){
+                    flyCount -= ncost[6];
+                    stage++;
+                }
             }
         }
     }
