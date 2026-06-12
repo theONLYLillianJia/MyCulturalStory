@@ -31,4 +31,9 @@ public class Button {
     public boolean isClicked(float mx, float my){
         return (mx >= x && mx <= x + image.width && my >= y && my <= y + image.height);
     }
+    
+    public boolean isHovered(int mx, int my){
+        return mx >= x && mx <= x + image.width &&
+               my >= y && my <= y + image.height;
+    }
 }
